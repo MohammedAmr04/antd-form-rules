@@ -1,37 +1,75 @@
 # antd-form-rules
 
-A lightweight utility library for **Ant Design forms** that provides ready-to-use and customizable validation rules.  
-With this library, you can easily add validation to your forms without rewriting the same rules in every project.
+A lightweight validation library for **Ant Design Forms**. Centralizes all form validation rules in one place and allows reusable, flexible, and easy-to-maintain validations across your project.
 
 ---
 
-## 📦 Installation
+## Features
 
-```bash
+- ✅ **Required**: Make fields mandatory
+- ✅ **Email**: Validate email format
+- ✅ **Min/Max Length**: Check string lengths
+- ✅ **Pattern**: Custom regex validation
+- ✅ **Confirm Password**: Match password and confirm password fields
+- ✅ **Strong Password**: Enforce strong password rules
+- ✅ **Extra Rules**: Easily merge extra rules per field without modifying the main config
+
+---
+
+## Installation
+
+````bash
 npm install antd-form-rules
 # or
 yarn add antd-form-rules
-```
 
 ---
 
 ## 📖 Usage Example
+```tsx
+# // configValidation.ts
+
+
+```
+## 📖 Usage Example
+
+### 1. Configure Validation
+
+```ts
+// validationConfig.ts
+import { strongPassword, email, required } from 'antd-form-rules';
+import type { ValidationConfig } from 'antd-form-rules';
+
+const validationConfig: ValidationConfig = {
+  email: { rules: [required(), email()] },
+  password: { rules: [required(), strongPassword()] },
+};
+```
+
+### 2. Set Up Global Validation (usually at app or form init)
+
+```ts
+// setupValidation.ts
+import { configValidation } from 'antd-form-rules/core';
+import { validationConfig } from './validationConfig';
+
+configValidation(validationConfig);
+```
+
+### 3. Use getValidation in Your Form
 
 ```jsx
-import { Form, Input } from "antd";
-import { required, email, strongPassword } from "antd-form-rules";
+// RegisterForm.jsx
+import { Form, Input } from 'antd';
+import { getValidation } from 'antd-form-rules/core';
 
 export default function RegisterForm() {
   return (
     <Form>
-      <Form.Item label="Email" name="email" rules={[required(), email()]}>
+      <Form.Item label="Email" name="email" rules={getValidation('email')}>
         <Input />
       </Form.Item>
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[required(), strongPassword()]}
-      >
+      <Form.Item label="Password" name="password" rules={getValidation('password')}>
         <Input.Password />
       </Form.Item>
     </Form>
@@ -39,35 +77,31 @@ export default function RegisterForm() {
 }
 ```
 
----
+```tsx
+import { Form, Input } from "antd";
+import { getValidation } from "antd-form-rules";
+import type {FieldType } from "antd-form-rules";
 
-## 🚀 Features
+export default function RegisterForm() {
+  return (
 
-- ✅ Ready-to-use validation rules (required, email, password strength, phone, etc.)
-- 🔧 Easy to extend and customize
-- ⚡ Simplifies form handling in Ant Design projects
-- 🎯 Consistent and reusable rules across multiple projects
-
----
-
-## 📂 Available Rules
-
-- `required(message?: string)`
-- `email(message?: string)`
-- `strongPassword(message?: string)`
-- `phone(message?: string)` (coming soon)
-
----
-
-## 🛠️ Roadmap
-
-- Add more built-in validation rules (username, URL, confirm password, etc.)
-- Add rule presets for common forms (login, register, profile update)
-- Improve TypeScript support and developer experience
+    <Form>
+      <Form.Item label="Email" name="email" rules={getValidation("email")}>
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={getValidation(FieldType.PASSWORD)}
+      >
+        <Input.Password />
+              </Form.Item>
+    </Form>
+  );
+}
+````
 
 ---
-
-## 🤝 Contributing
 
 Contributions are welcome!  
-Feel free to open issues or submit
+Feel free to open issues or submit pull requests.
