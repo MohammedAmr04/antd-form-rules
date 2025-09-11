@@ -10,6 +10,8 @@ import { FieldType } from '../types';
  */
 export function getValidation(field: FieldType, extraRules?: Rule[]): Rule[] {
   const key = field as keyof typeof validationConfig;
+  console.log(key);
   const defaultRules = validationConfig[key]?.rules || [];
+  console.log(defaultRules);
   return extraRules ? [...defaultRules, ...extraRules] : defaultRules;
 }
