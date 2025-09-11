@@ -1,4 +1,4 @@
-# antd-form-rules-lib-lib
+# antd-form-rules-lib
 
 A lightweight validation library for **Ant Design Forms**. Centralizes all form validation rules in one place and allows reusable, flexible, and easy-to-maintain validations across your project.
 
@@ -18,25 +18,21 @@ A lightweight validation library for **Ant Design Forms**. Centralizes all form 
 
 ## Installation
 
-````bash
+```bash
 npm install antd-form-rules-lib
 # or
 yarn add antd-form-rules-lib
+```
 
 ---
 
-## 📖 Usage Example
-```tsx
-# // configValidation.ts
-
-
-```
-## 📖 Usage Example
+## Quick Start
 
 ### 1. Configure Validation
 
+Create a config file (e.g. `validationConfig.ts`):
+
 ```ts
-// validationConfig.ts
 import { strongPassword, email, required } from 'antd-form-rules-lib';
 import type { ValidationConfig } from 'antd-form-rules-lib';
 
@@ -44,24 +40,31 @@ const validationConfig: ValidationConfig = {
   email: { rules: [required(), email()] },
   password: { rules: [required(), strongPassword()] },
 };
+
+export default validationConfig;
 ```
 
-### 2. Set Up Global Validation (usually at app or form init)
+### 2. Set Up Global Validation (App or Form Init)
 
-```ts
-// setupValidation.ts
-import { configValidation } from 'antd-form-rules-lib/core';
-import { validationConfig } from './validationConfig';
+```tsx
+// app.tsx
+import { configValidation } from 'antd-form-rules-lib';
+import { validationConfig } from './components/configValidation';
 
-configValidation(validationConfig);
+const App = () => {
+  configValidation(validationConfig);
+
+  return <div>App</div>;
+};
+
+export default App;
 ```
 
 ### 3. Use getValidation in Your Form
 
-```jsx
-// RegisterForm.jsx
+```tsx
 import { Form, Input } from 'antd';
-import { getValidation } from 'antd-form-rules-lib/core';
+import { getValidation } from 'antd-form-rules-lib';
 
 export default function RegisterForm() {
   return (
@@ -69,7 +72,11 @@ export default function RegisterForm() {
       <Form.Item label="Email" name="email" rules={getValidation('email')}>
         <Input />
       </Form.Item>
-      <Form.Item label="Password" name="password" rules={getValidation('password')}>
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={getValidation('password')}
+      >
         <Input.Password />
       </Form.Item>
     </Form>
@@ -77,31 +84,32 @@ export default function RegisterForm() {
 }
 ```
 
-```tsx
-import { Form, Input } from "antd";
-import { getValidation } from "antd-form-rules-lib";
-import type {FieldType } from "antd-form-rules-lib";
+---
 
-export default function RegisterForm() {
-  return (
+## API Reference
 
-    <Form>
-      <Form.Item label="Email" name="email" rules={getValidation("email")}>
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={getValidation(FieldType.PASSWORD)}
-      >
-        <Input.Password />
-              </Form.Item>
-    </Form>
-  );
-}
-````
+### Validation Rule Creators
+
+- `required(message?)` — Field is required
+- `email(message?)` — Validates email format
+- `minLength(min, message?)` — Minimum string length
+- `maxLength(max, message?)` — Maximum string length
+- `pattern(regex, message)` — Custom regex validation
+- `strongPassword(message?)` — Strong password enforcement
+- `confirmPassword(form, fieldName, message?)` — Password confirmation
+- `numberRange(min, max, message?)` — Number range validation
+- `url(message?)` — URL validation
+
+> See [src/rules/](src/rules/) for all available rules and their options.
+
+### Core Functions
+
+- `configValidation(config)` — Register global validation config
+- `getValidation(field, extraRules?)` — Get rules for a field (with optional extra rules)
 
 ---
+
+## Contributing
 
 Contributions are welcome!  
 Feel free to open issues or submit pull requests.
