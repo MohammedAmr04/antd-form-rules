@@ -1,4 +1,4 @@
-# antd-form-rules
+# antd-form-rules-lib-lib
 
 A lightweight validation library for **Ant Design Forms**. Centralizes all form validation rules in one place and allows reusable, flexible, and easy-to-maintain validations across your project.
 
@@ -19,9 +19,9 @@ A lightweight validation library for **Ant Design Forms**. Centralizes all form 
 ## Installation
 
 ````bash
-npm install antd-form-rules
+npm install antd-form-rules-lib
 # or
-yarn add antd-form-rules
+yarn add antd-form-rules-lib
 
 ---
 
@@ -37,8 +37,8 @@ yarn add antd-form-rules
 
 ```ts
 // validationConfig.ts
-import { strongPassword, email, required } from 'antd-form-rules';
-import type { ValidationConfig } from 'antd-form-rules';
+import { strongPassword, email, required } from 'antd-form-rules-lib';
+import type { ValidationConfig } from 'antd-form-rules-lib';
 
 const validationConfig: ValidationConfig = {
   email: { rules: [required(), email()] },
@@ -50,7 +50,7 @@ const validationConfig: ValidationConfig = {
 
 ```ts
 // setupValidation.ts
-import { configValidation } from 'antd-form-rules/core';
+import { configValidation } from 'antd-form-rules-lib/core';
 import { validationConfig } from './validationConfig';
 
 configValidation(validationConfig);
@@ -61,7 +61,7 @@ configValidation(validationConfig);
 ```jsx
 // RegisterForm.jsx
 import { Form, Input } from 'antd';
-import { getValidation } from 'antd-form-rules/core';
+import { getValidation } from 'antd-form-rules-lib/core';
 
 export default function RegisterForm() {
   return (
@@ -79,8 +79,8 @@ export default function RegisterForm() {
 
 ```tsx
 import { Form, Input } from "antd";
-import { getValidation } from "antd-form-rules";
-import type {FieldType } from "antd-form-rules";
+import { getValidation } from "antd-form-rules-lib";
+import type {FieldType } from "antd-form-rules-lib";
 
 export default function RegisterForm() {
   return (
