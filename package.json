@@ -24,6 +24,14 @@
   ],
   "author": "MohammedAmr04",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MohammedAmr04/antd-form-rules-lib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MohammedAmr04/antd-form-rules-lib/issues"
+  },
+  "homepage": "https://github.com/MohammedAmr04/antd-form-rules-lib#readme",
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "@types/react": "^19.1.12",
